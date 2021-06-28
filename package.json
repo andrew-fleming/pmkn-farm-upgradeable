@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.1.0",
+    "@openzeppelin/contracts-upgradeable": "^4.1.0",
+    "@openzeppelin/hardhat-upgrades": "^1.8.2",
+    "@types/chai": "^4.2.19",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.12.5",
+    "chai": "^4.3.4",
+    "hardhat": "^2.4.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
+  }
+}
