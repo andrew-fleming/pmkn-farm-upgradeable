@@ -7,10 +7,10 @@ import "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 contract PmknToken is Initializable, ContextUpgradeable, AccessControlUpgradeable, ERC20Upgradeable {
-    IERC20Upgradeable public pmknToken;
+    ERC20Upgradeable public pmknToken;
 
     function initialize(
-        IERC20Upgradeable _pmknToken,
+        ERC20Upgradeable _pmknToken,
         string memory name,
         string memory symbol
         ) public initializer {

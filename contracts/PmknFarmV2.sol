@@ -25,19 +25,19 @@ contract PmknFarmV2 is Initializable {
         IERC20 _daiToken,
         PmknTokenV2 _pmknToken
         ) public initializer {
-        admin = _admin;
-        daiToken = _daiToken;
-        pmknToken = _pmknToken;
+            admin = _admin;
+            daiToken = _daiToken;
+            pmknToken = _pmknToken;
     }
 
     /// HELPER FUNCTIONS ///
 
-    function setAddressBool(address user, string memory record, bool value) internal {
+    function setAddressBool(address user, string memory record, bool value) private {
         bytes32 _thing = keccak256(abi.encode(record));
         addressBoolStorage[_thing][user] = value;
     }
 
-    function setAddressUint(address user, string memory record, uint256 value) internal {
+    function setAddressUint(address user, string memory record, uint256 value) private {
         bytes32 _bytes = keccak256(abi.encode(record));
         addressUintStorage[_bytes][user] = value;
     }

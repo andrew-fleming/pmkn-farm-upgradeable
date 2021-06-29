@@ -4,6 +4,23 @@ import { Contract } from "ethers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
 
+describe("PmknToken Deployment", () => {
+    let owner: SignerWithAddress;
+    let pmknToken: Contract;
+
+    beforeEach(async() => {
+        const PmknToken = await ethers.getContractFactory("PmknToken");
+        [owner] = await ethers.getSigners();
+        pmknToken = await PmknToken.deploy();
+    })
+
+    describe("Init", async() => {
+        it("should init", async() => {
+            expect(pmknToken).to.be.ok
+        })
+    })
+})
+
 
 describe("PmknToken Contract", () => {
 
@@ -20,7 +37,6 @@ describe("PmknToken Contract", () => {
 
         [owner, alice, bob] = await ethers.getSigners();
 
-        //pmknToken = await PmknToken.deploy()
         pmknToken = await upgrades.deployProxy(PmknToken, [owner.address, "PmknToken", "PMKN"]);
         pmknTokenV2 = await upgrades.upgradeProxy(pmknToken.address, PmknTokenV2);
     })
@@ -33,6 +49,10 @@ describe("PmknToken Contract", () => {
                 .to.eq("PmknToken")
             expect(await pmknTokenV2.name())
                 .to.eq("PmknToken")
+        })
+
+        it("should have the same address", async() => {
+            expect(pmknToken.address).to.eq(pmknTokenV2.address)
         })
     })
 
@@ -57,7 +77,7 @@ describe("PmknToken Contract", () => {
 
         it("should revert for non-minter", async() => {
             await expect(pmknTokenV2.mint(alice.address, 1))
-                .to.be.reverted
+                .to.be.revertedWith("Must have minter role to mint")
         })
     })
 

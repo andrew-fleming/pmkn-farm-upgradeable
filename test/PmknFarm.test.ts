@@ -8,6 +8,7 @@ describe("PmknFarm", () => {
 
     let pmknFarm: Contract;
     let pmknFarmV2: Contract;
+    let pmknFarmV3: Contract;
     let pmknToken: Contract;
     let mockDai: Contract;
 
@@ -33,6 +34,7 @@ describe("PmknFarm", () => {
         pmknToken = await PmknToken.deploy()
         pmknFarm = await upgrades.deployProxy(PmknFarm, [owner.address, mockDai.address, pmknToken.address]);
         pmknFarmV2 = await upgrades.upgradeProxy(pmknFarm.address, PmknFarmV2);
+        pmknFarmV3 = await upgrades.upgradeProxy(pmknFarm.address, PmknFarmV2);
 })
 
     describe("Stake", async() => {

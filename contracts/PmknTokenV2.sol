@@ -7,11 +7,11 @@ import "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 contract PmknTokenV2 is Initializable, ContextUpgradeable, AccessControlUpgradeable, ERC20Upgradeable {
-    IERC20Upgradeable public pmknToken;
+    ERC20Upgradeable public pmknToken;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     function initialize(
-        IERC20Upgradeable _pmknToken,
+        ERC20Upgradeable _pmknToken,
         string memory name,
         string memory symbol
         ) public initializer {
@@ -22,7 +22,7 @@ contract PmknTokenV2 is Initializable, ContextUpgradeable, AccessControlUpgradea
     }
 
     function mint(address to, uint256 amount) public {
-        require(hasRole(MINTER_ROLE, _msgSender()), "MyToken: must have minter role to mint");
+        require(hasRole(MINTER_ROLE, _msgSender()), "Must have minter role to mint");
         _mint(to, amount);
     }
 
