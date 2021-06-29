@@ -8,7 +8,6 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 
 contract PmknToken is Initializable, ContextUpgradeable, AccessControlUpgradeable, ERC20Upgradeable {
     IERC20Upgradeable public pmknToken;
-    //bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     function initialize(
         IERC20Upgradeable _pmknToken,
