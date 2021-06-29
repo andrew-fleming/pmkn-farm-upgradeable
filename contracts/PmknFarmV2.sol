@@ -25,6 +25,8 @@ contract PmknFarmV2 is Initializable {
         daiToken = _daiToken;
     }
 
+    /// HELPER FUNCTIONS ///
+
     function setAddressBool(address user, string memory record, bool value) internal {
         bytes32 _thing = keccak256(abi.encode(record));
         addressBoolStorage[_thing][user] = value;
@@ -34,6 +36,8 @@ contract PmknFarmV2 is Initializable {
         bytes32 _bytes = keccak256(abi.encode(record));
         addressUintStorage[_bytes][user] = value;
     }
+
+    /// CORE FUNCTIONS /// 
 
     function stake(uint256 amount) public {
         require(

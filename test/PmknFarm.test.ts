@@ -77,8 +77,22 @@ describe("PmknFarm", () => {
         })
 
         it("should unstake total", async() => {
+            await pmknFarmV2.unstake(toTransfer)
+            expect(await pmknFarmV2.getStakingBalance(owner.address))
+                .to.eq(0)
+        })
+
+        it("should unstake partial", async() => {
+            let partialUnstake = ethers.utils.parseEther("3")
+            await pmknFarmV2.unstake(partialUnstake)
+            expect(await pmknFarmV2.getStakingBalance(owner.address))
+                .to.eq(ethers.utils.parseEther("7"))
+        })
+
+        it("should emit Unstake event", async() => {
             expect(await pmknFarmV2.unstake(toTransfer))
-                .to.be.ok
+                .to.emit(pmknFarmV2, "Unstake")
+                .withArgs(owner.address, toTransfer)
         })
     })
 
