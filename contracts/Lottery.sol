@@ -8,6 +8,16 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./NFTFactory.sol";
 import "./PmknToken.sol";
 
+/// @title Lottery
+/// @author Andrew Fleming
+/// @notice This contract adds a lottery feature to the PmknFarm contract that uses
+///         the NFT tokenId as the "ticket." This contract uses Chainlink's VRF to 
+///         achieve verifiable randomness for the winning number
+/// @dev Basic iteration of a lottery feature in the PmknFarm dApp. PmknFarm's mintNFT
+///      function includes a transfer invokation which funds the lotteryPool. The internal
+///      validateWinner function uses ERC721 Enumerable's tokenOfOwnerByIndex function to
+///      iterate and validate the user holds the winning tokenId number
+
 contract Lottery is Ownable, VRFConsumerBase {
 
     uint256 private lotteryPool;
@@ -55,7 +65,7 @@ contract Lottery is Ownable, VRFConsumerBase {
     /// @notice Starts the lottery
     /// @dev The getRandomNumber function call returns a requestId from invoking the
     ///      requestRandomness function. The requestIdToCount mapping uses the requestId
-    ///      as a key to point to the current lotteryCount. The lotteryCount increments by
+    ///      as a key to point to the current lotteryCount. The lotteryCount increments by 1
     ///      thereafter
     function getWinningNumber() public onlyOwner {
         bytes32 requestId = requestRandomness(keyHash, fee);
