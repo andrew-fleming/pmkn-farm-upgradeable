@@ -7,6 +7,14 @@ import "./PmknToken.sol";
 import "./NFTFactory.sol";
 import "./Lottery.sol";
 
+/// @title Pmkn Farm
+/// @author Andrew Fleming
+/// @notice This contract is an upgradeable version of the PmknFarm yield farming dApp. 
+/// @dev The inherited PmknToken contract automatically mints PMKN when the user invokes the
+///      withdrawYield function. The calculateYieldTime and calculateYieldTotal function 
+///      takes care of all yield calculations. Ownership of the PmknToken contract should 
+///      be transferred to the PmknFarm contract after deployment
+
 contract PmknFarm is Initializable {
 
     address private admin;
