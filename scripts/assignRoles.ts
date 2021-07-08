@@ -21,4 +21,9 @@ const main = async() => {
     console.log(`NFTFactory minter and pauser role assigned to ${PMKNFARM}`);
 }
 
-main();
+main()
+    .then(() => process.exit(0))
+    .catch(error => {
+        console.log(error)
+        process.exit(1)
+    });
