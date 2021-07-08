@@ -23,21 +23,21 @@ describe("Lottery Contract", () => {
 
     beforeEach(async() => {
         const Lottery = await ethers.getContractFactory("MockLotteryFunctions");
-
         const NFTFactory = await ethers.getContractFactory("NFTFactory");
         const NFTFactoryV2 = await ethers.getContractFactory("NFTFactoryV2");
+        const PmknToken = await ethers.getContractFactory("PmknToken");
+        const PmknTokenV2 = await ethers.getContractFactory("PmknTokenV2");
+        const MockLink = await ethers.getContractFactory("MockERC20");
+
         [owner, alice, bob] = await ethers.getSigners();
+        
         nftFactory = await upgrades.deployProxy(NFTFactory, ["Jack-O-Lantern", "JACK", "jack.token", nftPrice]);
         nftFactoryV2 = await upgrades.upgradeProxy(nftFactory.address, NFTFactoryV2);
         await nftFactoryV2.grantRole(minter, owner.address)
-
-        const PmknToken = await ethers.getContractFactory("PmknToken");
-        const PmknTokenV2 = await ethers.getContractFactory("PmknTokenV2");
+        
         pmknToken = await upgrades.deployProxy(PmknToken, [owner.address, "PmknToken", "PMKN"]);
         pmknTokenV2 = await upgrades.upgradeProxy(pmknToken.address, PmknTokenV2);
         await pmknTokenV2.grantRole(minter, owner.address)
-
-        const MockLink = await ethers.getContractFactory("MockERC20");
 
         mockLink = await MockLink.deploy("MockLink", "mLINK");
         await mockLink.mint(owner.address, ethers.utils.parseEther("9999"));
@@ -62,11 +62,9 @@ describe("Lottery Contract", () => {
         })
 
         it("should track tokenIds", async() => {
-            //let minter = await nftFactory.MINTER_ROLE()
             await nftFactory.grantRole(minter, owner.address)
             await nftFactory.mint(alice.address)
             await nftFactory.mint(alice.address)
-            //let res = await nftFactory.totalSupply()
             expect(await nftFactory.totalSupply())
                 .to.eq(2)
         })
@@ -108,7 +106,6 @@ describe("Lottery Contract", () => {
 
     describe("Call Test functions to check state", async() => {
         beforeEach(async() => {
-            let minter = await nftFactory.MINTER_ROLE()
             await Promise.all([
                 nftFactory.grantRole(minter, owner.address),
                 pmknToken.grantRole(minter, owner.address),
@@ -173,7 +170,6 @@ describe("Lottery Contract", () => {
 
     describe("Events", async() => {
         beforeEach(async() => {
-            let minter = await nftFactory.MINTER_ROLE()
             await Promise.all([
                 pmknTokenV2.mint(owner.address, ethers.utils.parseEther("999")),
                 nftFactory.mint(alice.address),

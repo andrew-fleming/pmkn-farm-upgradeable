@@ -139,35 +139,7 @@ contract PmknFarmV2 is Initializable {
         nftFactory.mint(user);
         uint256 tokenId = nftFactory.totalSupply();
         emit MintNFT(user, tokenId);
-    }
-
-    /// NEW NFT FUNCTIONS ///
-//
-    //function getCurrentNFT(uint256 tokenId) public view returns (string memory, string memory, bytes memory, uint, uint) {
-    //    return templateNFT.newNFT(tokenId);
-    //}
-//
-    //function mintNFT(uint amount) public {
-    //    // require pmkn and send to lottery
-    //    templateNFT.mintSetNFT(msg.sender, amount);
-    //}
-
-        
-        //nftFactory.mint(user, amount, name);
-        //(address to, uint256 id, uint256 amount, bytes memory data
-
-    //function mintNFT(address user, string memory tokenURI) public {
-    //    require(
-    //        pmknToken.balanceOf(msg.sender) >= nftPrice, 
-    //        "Not enough PMKN"
-    //    );
-    //    lottery.addToLotteryPool(msg.sender, nftPrice);
-    //    uint256 tokenId = jackOLantern.mintItem(user, tokenURI);
-    //    nftCount[tokenURI]++;
-    //    emit MintNFT(msg.sender, tokenId);
-    //}
-
-    
+    } 
 
  
     ////////////////
