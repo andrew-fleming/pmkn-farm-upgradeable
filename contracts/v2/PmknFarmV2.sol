@@ -82,6 +82,7 @@ contract PmknFarmV2 is Initializable {
             "Nothing to unstake"
         );
         uint256 yieldTransfer = calculateYieldTotal(msg.sender);
+        setAddressUint(msg.sender, "timeStart", block.timestamp);
         uint256 balTransfer = amount;
         amount = 0;
         uint256 oldStake = getStakingBalance(msg.sender);

@@ -237,6 +237,15 @@ describe("PmknFarm", () => {
                 .to.emit(pmknFarmV2, "YieldWithdraw")
                 .withArgs(alice.address, toTransfer)
         })
+
+        it("should withdraw correct yield after partial unstake", async() => {
+            await time.increase(86400)
+            await pmknFarmV2.connect(alice).unstake(20)
+            await time.increase(86400)
+            await pmknFarmV2.connect(alice).withdrawYield()
+            res = await pmknToken.balanceOf(alice.address)
+            expect(res).to.eq(30)
+        })
     })
 
 })
